@@ -1,6 +1,6 @@
 # Compliance Monitor
 
-A small Next.js app that uses AI to evaluate whether a reported action complies with a given guideline. Built as a take-home exercise for Ease.io.
+A small Next.js app that uses AI to evaluate whether a reported action complies with a given guideline.
 
 ## How it works
 
