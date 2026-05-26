@@ -40,7 +40,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Running tests
 
-The E2E tests use Playwright and call the live Hugging Face API, so make sure your dev server is running and your `.env.local` is set up before running them.
+The E2E tests use Playwright and call the live Hugging Face API. Make sure your `.env.local` is set up before running them.
 
 ```bash
 npm test
