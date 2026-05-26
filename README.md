@@ -23,11 +23,10 @@ Past analyses are saved to `localStorage` so your history persists across page r
 npm install
 ```
 
-2. Create a `.env.local` file in the project root:
+2. Copy `.env.example` to `.env.local` and fill in your credentials:
 
-```
-HUGGING_FACE_API_TOKEN=your_token_here
-HUGGING_FACE_API_URL=https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli
+```bash
+cp .env.example .env.local
 ```
 
 3. Start the dev server:

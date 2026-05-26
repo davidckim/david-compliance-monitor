@@ -1,11 +1,5 @@
-import { AnalysisRecord } from '@/types/analysis';
+import { AnalysisRecord, resultStyles } from '@/types/analysis';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
-export const resultStyles: Record<AnalysisRecord['result'], string> = {
-  COMPLIES: 'text-green-400',
-  DEVIATES: 'text-red-400',
-  UNCLEAR: 'text-yellow-400',
-};
 
 export const AnalysisResultCard = ({
   analysis,

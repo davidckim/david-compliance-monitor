@@ -36,6 +36,7 @@ export async function POST(request: Request) {
       inputs: `Action: ${action}. Guideline: ${guideline}.`,
       parameters: { candidate_labels: CANDIDATE_LABELS },
     }),
+    signal: AbortSignal.timeout(10000),
   });
 
   if (!response.ok) {
@@ -45,7 +46,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const [topResult] = (await response.json()) as HuggingFaceResult[];
+  const results = (await response.json()) as HuggingFaceResult[];
+  const topResult = results[0];
+
+  if (!topResult) {
+    return NextResponse.json(
+      { error: 'No results returned from Hugging Face' },
+      { status: 502 }
+    );
+  }
 
   return NextResponse.json({
     id: crypto.randomUUID(),

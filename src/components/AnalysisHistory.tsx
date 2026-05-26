@@ -1,9 +1,8 @@
 'use client';
 
-import { AnalysisRecord } from '@/types/analysis';
+import { AnalysisRecord, resultStyles } from '@/types/analysis';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { resultStyles } from '@/components/AnalysisResultCard';
 
 type AnalysisHistoryProps = {
   history: AnalysisRecord[];
