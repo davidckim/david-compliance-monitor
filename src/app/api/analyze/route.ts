@@ -8,6 +8,13 @@ type HuggingFaceResult = {
 };
 
 export async function POST(request: Request) {
+  if (!process.env.HUGGING_FACE_API_URL || !process.env.HUGGING_FACE_API_TOKEN) {
+    return NextResponse.json(
+      { error: 'Missing Hugging Face API configuration' },
+      { status: 500 }
+    );
+  }
+
   const { action, guideline } = await request.json();
 
   const headers = {
@@ -22,7 +29,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const response = await fetch(process.env.HUGGING_FACE_API_URL!, {
+  const response = await fetch(process.env.HUGGING_FACE_API_URL, {
     method: 'POST',
     headers,
     body: JSON.stringify({
