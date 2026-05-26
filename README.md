@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Compliance Monitor
 
-## Getting Started
+A small Next.js app that uses AI to evaluate whether a reported action complies with a given guideline. Built as a take-home exercise for Ease.io.
 
-First, run the development server:
+## How it works
+
+You enter an action (what someone did) and a guideline (the rule they were supposed to follow). The app sends both to a `/api/analyze` endpoint, which calls the Hugging Face `facebook/bart-large-mnli` zero-shot classification model with three candidate labels: `complies`, `deviates`, and `unclear`. The top result is returned along with a confidence score.
+
+Past analyses are saved to `localStorage` so your history persists across page refreshes. You can click any history item to re-fill the form and resubmit.
+
+## Setup
+
+**Prerequisites**
+
+- Node.js 18+
+- A free [Hugging Face](https://huggingface.co) account with a Read token
+
+**Steps**
+
+1. Clone the repo and install dependencies:
+
+```bash
+npm install
+```
+
+2. Create a `.env.local` file in the project root:
+
+```
+HUGGING_FACE_API_TOKEN=your_token_here
+HUGGING_FACE_API_URL=https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli
+```
+
+3. Start the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Running tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The E2E tests use Playwright and call the live Hugging Face API, so make sure your dev server is running and your `.env.local` is set up before running them.
 
-## Learn More
+```bash
+npm test
+```
 
-To learn more about Next.js, take a look at the following resources:
+The test suite covers the main compliance outcomes (COMPLIES, DEVIATES, UNCLEAR) and verifies that results are saved to history.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 16 (App Router)
+- TypeScript
+- Tailwind CSS v4
+- shadcn/ui (Base Nova)
+- Hugging Face Inference API
+- Playwright (E2E tests)
